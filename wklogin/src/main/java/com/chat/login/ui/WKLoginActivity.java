@@ -143,7 +143,12 @@ public class WKLoginActivity extends WKBaseActivity<ActLoginLayoutBinding> imple
             loadingPopup.show();
             loadingPopup.setTitle(getString(R.string.logging_in));
             String name = Objects.requireNonNull(wkVBinding.nameEt.getText()).toString();
-            loginPresenter.login(code + name, wkVBinding.pwdEt.getText().toString());
+            // 如果是11位数字，且区号是0086，则拼接区号，否则直接登录
+            if (code.equals("0086") && name.length() == 11 && TextUtils.isDigitsOnly(name)) {
+                loginPresenter.login(code + name, wkVBinding.pwdEt.getText().toString());
+            } else {
+                loginPresenter.login(name, wkVBinding.pwdEt.getText().toString());
+            }
         });
         SingleClickUtil.onSingleClick(wkVBinding.registerTv, v -> startActivity(new Intent(this, WKRegisterActivity.class)));
         SingleClickUtil.onSingleClick(wkVBinding.chooseCodeTv, v -> {

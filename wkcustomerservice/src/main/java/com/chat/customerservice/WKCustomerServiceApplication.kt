@@ -63,6 +63,23 @@ class WKCustomerServiceApplication private constructor() {
             }
         }
 
+        // [NEW] 个人中心入口
+        EndpointManager.getInstance().setMethod(
+            "personal_center_customer_service",
+            EndpointCategory.personalCenter,
+            100
+        ) {
+            com.chat.base.endpoint.entity.PersonalInfoMenu(
+                R.mipmap.ic_customer_service,
+                com.chat.base.WKBaseApplication.getInstance().context.getString(R.string.customer_service)
+            ) {
+                val activity = com.chat.base.utils.ActManagerUtils.getInstance().currentActivity
+                if (activity != null) {
+                    start(activity)
+                }
+            }
+        }
+
     }
 
     private fun start(context: Context) {

@@ -1,5 +1,8 @@
 package com.test.demo2
 
+import com.muyou.tsdd.R
+import com.muyou.tsdd.databinding.ActivityMainBinding
+
 import android.content.Intent
 import android.text.Spannable
 import android.text.SpannableStringBuilder

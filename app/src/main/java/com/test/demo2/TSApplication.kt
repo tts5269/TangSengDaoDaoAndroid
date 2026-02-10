@@ -1,5 +1,7 @@
 package com.test.demo2
 
+import com.muyou.tsdd.R
+
 import android.app.Activity
 import android.app.ActivityManager
 import android.app.Notification
@@ -101,6 +103,13 @@ class TSApplication : MultiDexApplication() {
         WKScanApplication.getInstance().init(this)
         WKUIKitApplication.getInstance().init(this)
         WKPushApplication.getInstance().init(getAppPackageName(), this)
+        // [NEW] 初始化新模块
+        com.chat.customerservice.WKCustomerServiceApplication.instance.init(getAppPackageName())
+        com.chat.groupmanage.WKGroupManageApplication.getInstance().init()
+        com.chat.security.WKSecurityApplication.instance.init()
+        com.chat.label.WKLabelApplication.instance.init(this)
+        com.chat.file.WKFileApplication.getInstance().init(this)
+
         addAppFrontBack()
         addListener()
     }
@@ -108,7 +117,7 @@ class TSApplication : MultiDexApplication() {
     private fun initApi() {
         var apiURL = WKSharedPreferencesUtil.getInstance().getSP("api_base_url")
         if (TextUtils.isEmpty(apiURL)) {
-            apiURL = "https://api.botgate.cn"
+            apiURL = "http://74.48.84.233:8090"
             WKApiConfig.initBaseURL(apiURL)
         } else {
             WKApiConfig.initBaseURLIncludeIP(apiURL)
